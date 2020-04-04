@@ -5,9 +5,10 @@ import java.util.Iterator;
 
 import general_files.User;
 import lab_tech_component.Medication;
+import lab_tech_component.interfaces.IEditReport;
 import physician_component.interfaces.IPrescribeMedication;
 
-public class Physician extends User implements IPrescribeMedication {
+public class Physician extends User implements IPrescribeMedication, IEditReport {
 
     private ArrayList<User> patientList = new ArrayList<User>();
 

@@ -7,18 +7,19 @@ import lab_tech_component.Medication;
 
 public class Patient extends User{
 	
-	private ArrayList<Diseases> list_d = new ArrayList<>();
-	private ArrayList<Medication> list_m = new ArrayList<>();
+	private ArrayList<Diseases> diseasesList = new ArrayList<>();
+	private ArrayList<Medication> medicationsList = new ArrayList<>();
 	private int age;
 	private double weight , height;
 	
 	//Two different constructors depending on type of info available
 	public Patient(int ID, String firstName, String lastName, int age, double w, double h) {
+
 		super(ID, firstName, lastName);
 		this.age = age;
 		this.weight = w;
 		this.height = h;
-		
+	
 	}
 
 	public Patient(int ID, String firstName, String lastName, int age,double w, double h, ArrayList<Medication> meds, ArrayList<Diseases> d) {
@@ -26,25 +27,25 @@ public class Patient extends User{
 		this.age = age;
 		this.weight = w;
 		this.height = h;
-		this.list_d = d;
-		this.list_m = meds;
+		this.diseasesList = d;
+		this.medicationsList = meds;
 	}
 	
 	// GETTERS & SETTERS
-	public ArrayList<Diseases> getList_d() {
-		return list_d;
+	public ArrayList<Diseases> getdiseasesList() {
+		return diseasesList;
 	}
 
-	public void setList_d(ArrayList<Diseases> list_d) {
-		this.list_d = list_d;
+	public void setdiseasesList(ArrayList<Diseases> diseasesList) {
+		this.diseasesList = diseasesList;
 	}
 
-	public ArrayList<Medication> getList_m() {
-		return list_m;
+	public ArrayList<Medication> getmedicationsList() {
+		return medicationsList;
 	}
 
-	public void setList_m(ArrayList<Medication> list_m) {
-		this.list_m = list_m;
+	public void setmedicationsList(ArrayList<Medication> medicationsList) {
+		this.medicationsList = medicationsList;
 	}
 
 	public int getAge() {
@@ -57,16 +58,16 @@ public class Patient extends User{
      
    public String getALLMeds() {
 	   String s="";
-	   for (int i = 0; i < this.list_m.size(); i++) {
-		s+=list_m.toString()+"\n";
+	   for (int i = 0; i < this.medicationsList.size(); i++) {
+		s+=medicationsList.toString()+"\n";
 	}
 	   return s;
    }
    
    public String getALLDiseases() {
 	   String s="";
-	   for (int i = 0; i < this.list_d.size(); i++) {
-		s+=list_m.toString()+"\n";
+	   for (int i = 0; i < this.diseasesList.size(); i++) {
+		s+=medicationsList.toString()+"\n";
 	}
 	   return s;
    }
