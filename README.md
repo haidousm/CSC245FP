@@ -17,7 +17,8 @@ This project will also include a **Graphical User Interface**.
 ### General Files
 
     - [X] Create abstract User class that includes all the basic properties (ID, first name, last name, etc..)
-    - [X] Create Medication class that includes the *medication ID*, *medication name*, and any possible adverse medications.
+    - [X] Create Medication class that includes the *medication ID*, *medication name*
+    - [X] Create Disease class that includes the disease name along with any possible medication / treatment
 
 ### Physician Component
 
