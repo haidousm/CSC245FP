@@ -1,13 +1,14 @@
 package patient_component;
 
 import java.util.ArrayList;
+
 import general_files.User;
-import lab_tech_component.Diseases;
+import lab_tech_component.Disease;
 import lab_tech_component.Medication;
 
 public class Patient extends User {
 
-	private ArrayList<Diseases> diseasesList = new ArrayList<>();
+	private ArrayList<Disease> diseasesList = new ArrayList<>();
 	private ArrayList<Medication> medicationsList = new ArrayList<>();
 	private int age;
 	
@@ -24,7 +25,7 @@ public class Patient extends User {
 	}
 
 	public Patient(int ID, String firstName, String lastName, int age, double w, double h, ArrayList<Medication> meds,
-			ArrayList<Diseases> d) {
+			ArrayList<Disease> d) {
 		super(ID, firstName, lastName);
 		this.age = age;
 		this.weight = w;
@@ -33,11 +34,11 @@ public class Patient extends User {
 		this.medicationsList = meds;
 	}
 
-	public ArrayList<Diseases> getDiseasesList() {
+	public ArrayList<Disease> getDiseasesList() {
 		return diseasesList;
 	}
 
-	public void setDiseasesList(ArrayList<Diseases> diseasesList) {
+	public void setDiseasesList(ArrayList<Disease> diseasesList) {
 		this.diseasesList = diseasesList;
 	}
 

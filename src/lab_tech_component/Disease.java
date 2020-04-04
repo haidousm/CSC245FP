@@ -2,28 +2,25 @@ package lab_tech_component;
 
 import java.util.*;
 
-public class Diseases {
+public class Disease {
 
 	private String name;
 	private ArrayList<Medication> treatment = new ArrayList<>();
 	private Medication med;
 
 	// If Disease has an associated med
-	public Diseases(String name, Medication med) {
-		super();
+	public Disease(String name, Medication med) {
 		this.name = name;
 		this.med = med;
 	}
 
 	// If Disease has an associated treatment
-	public Diseases(String name, ArrayList<Medication> treatment, Medication med) {
-		super();
+	public Disease(String name, ArrayList<Medication> treatment) {
 		this.name = name;
 		this.treatment = treatment;
-		this.med = med;
+
 	}
 
-	// GETTERS & SETTERS
 	public String getName() {
 		return name;
 	}
@@ -49,7 +46,7 @@ public class Diseases {
 	}
 
 	public String toString() {
-		return "Disease Name: " + this.name;
+		return this.getName() + "\n";
 	}
 
 }
