@@ -25,9 +25,9 @@ This project will also include a **Graphical User Interface**.
         - [ ] allows physicians to check current medication repository if the wanted medication is found
         - [ ] check against any adverse medication the patient might have
     - [X] Create Physician class that extends the User class, implements IPrescribeMedication interface and includes two extra properties, *current patients list*, and the *current medication repository*.
-    - [ ] Create a General Practitioner class that extends the generic Physician class and contains job-specific functions.
-    - [ ] Create a Radiologist class that extends the generic Physician class and contains job-specific functions.
-    - [ ] Create a Cardiologist class that extends the generic Physician class and contains job-specific functions.
+    - [X] Create a General Practitioner class that extends the generic Physician class and contains job-specific functions.
+    - [X] Create a Radiologist class that extends the generic Physician class and contains job-specific functions.
+    - [X] Create a Cardiologist class that extends the generic Physician class and contains job-specific functions.
 
 ### Patient Component
 
