@@ -49,4 +49,5 @@ public class Disease {
 		return this.getName() + "\n";
 	}
 
+	
 }
