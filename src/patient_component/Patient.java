@@ -10,15 +10,18 @@ public class Patient extends User {
 
 	private ArrayList<Disease> diseasesList = new ArrayList<>();
 	private ArrayList<Medication> medicationsList = new ArrayList<>();
-	private int age;
-	
+	private int age,ssn;
 	private double weight, height;
+	private String gender;
+	
 
 	// Two different constructors depending on type of info available
-	public Patient(int ID, String firstName, String lastName, int age, double w, double h) {
+	public Patient(int ID,int ssn, String firstName, String lastName, int age, String gender, double w, double h) {
 
 		super(ID, firstName, lastName);
 		this.age = age;
+		this.ssn =  ssn;
+		this.gender = gender;
 		this.weight = w;
 		this.height = h;
 
@@ -58,6 +61,38 @@ public class Patient extends User {
 		this.age = age;
 	}
 
+	public int getSSN() {
+		return ssn;
+	}
+
+	public void setSSN(int ssn) {
+		this.ssn = ssn;
+	}
+
+	public double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(double weight) {
+		this.weight = weight;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public void setHeight(double height) {
+		this.height = height;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
 	public String getMeds() {
 
 		String string = "";
@@ -85,8 +120,10 @@ public class Patient extends User {
 	@Override
 	public String toString() {
 
-		return String.format("Patient ID: %d -- Name: %s, %s -- Diseases Contracted:\n%s\nMedications In Use:\n%s",
-				this.getID(), this.getLastName(), this.getFirstName(), this.getDiseases(), this.getMeds());
+		return String.format("Patient ID: %d -- SSN: %s -- Name: %s, %s\nAge: %d -- Gender: %s --"
+				+ " Weight: %.2f -- Height: %.2f\nDiseases Contracted:\n%s\nMedications In Use:\n%s",
+				this.getID(),this.getSSN(), this.getAge(),this.getGender(),this.getWeight()
+				,this.getHeight(),this.getLastName(), this.getFirstName(), this.getDiseases(), this.getMeds());
 	}
 
 }
