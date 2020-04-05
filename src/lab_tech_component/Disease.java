@@ -1,53 +1,45 @@
 package lab_tech_component;
 
-import java.util.*;
-
 public class Disease {
 
-	private String name;
-	private ArrayList<Medication> treatment = new ArrayList<>();
-	private Medication med;
+    private int ID;
+    private String name;
+    //private ArrayList<Medication> treatment = new ArrayList<>();
+    private int medicationID;
 
-	// If Disease has an associated med
-	public Disease(String name, Medication med) {
-		this.name = name;
-		this.med = med;
-	}
+    public Disease(int ID, String name, int medicationID) {
+        this.setID(ID);
+        this.setName(name);
+        this.setMedicationID(medicationID);
+    }
 
-	// If Disease has an associated treatment
-	public Disease(String name, ArrayList<Medication> treatment) {
-		this.name = name;
-		this.treatment = treatment;
+    public int getID() {
+        return ID;
+    }
 
-	}
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public ArrayList<Medication> getTreatment() {
-		return treatment;
-	}
+    public int getMedicationID() {
+        return medicationID;
+    }
 
-	public void setTreatment(ArrayList<Medication> treatment) {
-		this.treatment = treatment;
-	}
+    public void setMedicationID(int medicationID) {
+        this.medicationID = medicationID;
+    }
 
-	public Medication getMed() {
-		return med;
-	}
+    public String toString() {
+        return this.getID() + "--" + this.getName() + "\n";
+    }
 
-	public void setMed(Medication med) {
-		this.med = med;
-	}
 
-	public String toString() {
-		return this.getName() + "\n";
-	}
-
-	
 }

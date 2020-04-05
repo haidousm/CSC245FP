@@ -1,73 +1,54 @@
 package patient_component;
 
-import java.util.ArrayList;
-
 import general_files.User;
-import lab_tech_component.Disease;
-import lab_tech_component.Medication;
+
+import java.util.ArrayList;
 
 public class Patient extends User {
 
-	private ArrayList<Disease> diseasesList = new ArrayList<>();
-	private ArrayList<Medication> medicationsList = new ArrayList<>();
-	private int age,ssn;
-	private double weight, height;
-	private String gender;
-	
+    private ArrayList<Integer> diseasesList = new ArrayList<>();
+    private ArrayList<Integer> medicationsList = new ArrayList<>();
 
-	// Two different constructors depending on type of info available
-	public Patient(int ID,int ssn, String firstName, String lastName, int age, String gender, double w, double h) {
+    private int age, gender;
+    private double weight, height;
 
-		super(ID, firstName, lastName);
-		this.age = age;
-		this.ssn =  ssn;
-		this.gender = gender;
-		this.weight = w;
-		this.height = h;
+    public Patient(int ID, String firstName, String lastName, int age, int gender, double weight, double height) {
 
-	}
+        super(ID, firstName, lastName);
+        this.setAge(age);
+        this.setWeight(weight);
+        this.setHeight(height);
+        this.setGender(gender);
+//		this.setDiseasesList(diseasesList);
+//		this.setMedicationsList(medicationsList);
+//		, ArrayList<Integer> diseasesList, ArrayList<Integer> medicationsList
 
-	public Patient(int ID, String firstName, String lastName, int age, double w, double h, ArrayList<Medication> meds,
-			ArrayList<Disease> d) {
-		super(ID, firstName, lastName);
-		this.age = age;
-		this.weight = w;
-		this.height = h;
-		this.diseasesList = d;
-		this.medicationsList = meds;
-	}
 
-	public ArrayList<Disease> getDiseasesList() {
-		return diseasesList;
-	}
+    }
 
-	public void setDiseasesList(ArrayList<Disease> diseasesList) {
-		this.diseasesList = diseasesList;
-	}
+    public ArrayList<Integer> getDiseasesList() {
+        return diseasesList;
+    }
 
-	public ArrayList<Medication> getMedicationsList() {
-		return medicationsList;
-	}
+    public void setDiseasesList(ArrayList<Integer> diseasesList) {
+        this.diseasesList = diseasesList;
+    }
 
-	public void setMedicationsList(ArrayList<Medication> medicationsList) {
-		this.medicationsList = medicationsList;
-	}
+    public ArrayList<Integer> getMedicationsList() {
+        return medicationsList;
+    }
 
-	public int getAge() {
-		return this.age;
-	}
+    public void setMedicationsList(ArrayList<Integer> medicationsList) {
+        this.medicationsList = medicationsList;
+    }
 
-	public void setAge(int age) {
-		this.age = age;
-	}
+    public int getAge() {
+        return age;
+    }
 
-	public int getSSN() {
-		return ssn;
-	}
-
-	public void setSSN(int ssn) {
-		this.ssn = ssn;
-	}
+    public void setAge(int age) {
+        this.age = age;
+    }
 
 	public double getWeight() {
 		return weight;
@@ -75,55 +56,26 @@ public class Patient extends User {
 
 	public void setWeight(double weight) {
 		this.weight = weight;
-	}
+    }
 
-	public double getHeight() {
-		return height;
-	}
+    public double getHeight() {
+        return height;
+    }
 
-	public void setHeight(double height) {
-		this.height = height;
-	}
+    public void setHeight(double height) {
+        this.height = height;
+    }
 
-	public String getGender() {
-		return gender;
-	}
+    public int getGender() {
+        return gender;
+    }
 
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
 
-	public String getMeds() {
-
-		String string = "";
-		for (int i = 0; i < this.medicationsList.size(); i++) {
-
-			string += medicationsList.get(i).toString();
-
-		}
-
-		return string;
-	}
-
-	public String getDiseases() {
-		String string = "";
-
-		for (int i = 0; i < this.diseasesList.size(); i++) {
-
-			string += diseasesList.get(i).toString();
-
-		}
-
-		return string;
-	}
-
-	@Override
-	public String toString() {
-
-		return String.format("Patient ID: %d -- SSN: %s -- Name: %s, %s\nAge: %d -- Gender: %s --"
-				+ " Weight: %.2f -- Height: %.2f\nDiseases Contracted:\n%s\nMedications In Use:\n%s",
-				this.getID(),this.getSSN(), this.getAge(),this.getGender(),this.getWeight()
-				,this.getHeight(),this.getLastName(), this.getFirstName(), this.getDiseases(), this.getMeds());
-	}
-
+    @Override
+    public String toString() {
+        return " ";
+    }
 }

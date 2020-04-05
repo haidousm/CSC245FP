@@ -4,17 +4,17 @@ public class Medication {
 
     private int medicationID;
     private String medicationName;
-    private String adverseMedication;
- 
 
-	public Medication(int medicationID, String medicationName, String adverseMedication) {
-		super();
-		this.medicationID = medicationID;
-		this.medicationName = medicationName;
-		this.adverseMedication = adverseMedication;
-	}
+    private int adverseMedicationID;
 
-	public int getMedicationID() {
+
+    public Medication(int medicationID, String medicationName, int adverseMedicationID) {
+        this.setMedicationID(medicationID);
+        this.setMedicationName(medicationName);
+        this.setAdverseMedicationID(adverseMedicationID);
+    }
+
+    public int getMedicationID() {
         return this.medicationID;
     }
 
@@ -30,16 +30,16 @@ public class Medication {
         this.medicationName = medicationName;
     }
 
-    public String getAdverseMedication() {
-		return adverseMedication;
-	}
+    public int getAdverseMedicationID() {
+        return adverseMedicationID;
+    }
 
-	public void setAdverseMedication(String adverseMedication) {
-		this.adverseMedication = adverseMedication;
-	}
-	
+    public void setAdverseMedicationID(int adverseMedicationID) {
+        this.adverseMedicationID = adverseMedicationID;
+    }
+
     public String toString() {
-        
+
         return String.format("Medication ID: %d -- Medication Name: %s\n", this.getMedicationID(), this.getMedicationName());
     }
 
