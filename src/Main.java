@@ -84,34 +84,46 @@ public class Main {
             if (patient.getMedicationsList().size() == 0) {
 
                 System.out.println("You currently have no medications saved at ***YourHealth Inc.***\nWould you like some?\n\t1- Yes\n\t0- No\n");
-                addMedicationToPatient(patient);
+                int key = input.nextInt();
+
+                if (key > 0) {
+                    addMedicationToPatient(patient);
+                }
 
             }
 
             if (patient.getDiseasesList().size() == 0) {
 
                 System.out.println("There's no diseases attached to your record. We suggest adding some so that we can aid you better.\nWould you like to?\n\t1- Yes\n\t0- No\n");
-                addDiseaseToPatient(patient);
+                int key = input.nextInt();
+                if (key > 0) {
+                    addDiseaseToPatient(patient);
+                }
 
             }
 
-            System.out.println("What would you like to do?\n\t1- View Records\n\t2- Add Medications\n\t3- Add Diseases\n\t0- Exit");
-            int key = input.nextInt();
+            int key = -1;
 
-            switch (key) {
+            while (key != 0) {
 
-                case 1:
-                    viewPatientRecords(patient);
-                    break;
-                case 2:
-                    addMedicationToPatient(patient);
-                    break;
-                case 3:
-                    addDiseaseToPatient(patient);
-                    break;
-                default:
-                    break;
+                System.out.println("What would you like to do?\n\t1- View Records\n\t2- Add Medications\n\t3- Add Diseases\n\t0- Exit");
+                key = input.nextInt();
 
+                switch (key) {
+
+                    case 1:
+                        viewPatientRecords(patient);
+                        break;
+                    case 2:
+                        addMedicationToPatient(patient);
+                        break;
+                    case 3:
+                        addDiseaseToPatient(patient);
+                        break;
+                    default:
+                        break;
+
+                }
             }
 
 
@@ -203,9 +215,7 @@ public class Main {
 
     public static void addMedicationToPatient(Patient patient) {
 
-        int key = input.nextInt();
 
-        if (key == 1) {
             System.out.print("Please enter the # of medications you'd like to add: ");
             int numOfMeds = input.nextInt();
             System.out.println("Please enter the medication IDs:");
@@ -227,17 +237,10 @@ public class Main {
                 numOfMeds--;
 
             }
-        }
-
-
     }
 
     public static void addDiseaseToPatient(Patient patient) {
 
-
-        int key = input.nextInt();
-
-        if (key == 1) {
             System.out.print("Please enter the # of diseases you'd like to add: ");
             int numOfDiseases = input.nextInt();
             System.out.println("Please enter the disease IDs:");
@@ -248,7 +251,7 @@ public class Main {
                 Disease disease = data.retrieveDiseaseBy(diseaseID);
                 if (disease != null) {
 
-                    System.out.printf("Successfully added %s\n", disease.getName());
+                    System.out.printf("Successfully added %s\n.", disease.getName());
                     patient.getDiseasesList().add(diseaseID);
 
                 } else {
@@ -260,8 +263,6 @@ public class Main {
                 numOfDiseases--;
 
             }
-        }
-
 
     }
 

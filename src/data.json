@@ -21,8 +21,15 @@
   },
   "patientDict": {
     "0": {
-      "diseasesList": [],
-      "medicationsList": [],
+      "diseasesList": [
+        0,
+        1
+      ],
+      "medicationsList": [
+        0,
+        1,
+        2
+      ],
       "age": 18,
       "gender": 0,
       "weight": 80.0,
@@ -32,8 +39,13 @@
       "lastName": "C"
     },
     "1": {
-      "diseasesList": [],
-      "medicationsList": [],
+      "diseasesList": [
+        0,
+        1
+      ],
+      "medicationsList": [
+        1
+      ],
       "age": 52,
       "gender": 1,
       "weight": 63.5,
