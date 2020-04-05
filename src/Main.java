@@ -1,105 +1,25 @@
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import general_files.Data;
 import general_files.User;
 import lab_tech_component.Disease;
 import lab_tech_component.Medication;
 import patient_component.Patient;
-import physician_component.Physician;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
-class Data {
-
-    int userID = 0;
-    HashMap<Integer, Physician> physicianDict = new HashMap<>();
-    HashMap<Integer, Patient> patientDict = new HashMap<>();
-
-    int medicationIDCount = 0;
-    HashMap<Integer, Medication> medicationDict = new HashMap<>();
-
-    int diseaseIDCount = 0;
-    HashMap<Integer, Disease> diseaseDict = new HashMap<>();
-
-    public int createPhysician(String firstName, String lastName) {
-
-        physicianDict.put(userID, new Physician(userID, firstName, lastName));
-        userID++;
-        return userID - 1;
-
-    }
-
-    public int createPatient(String firstName, String lastName, int age, int gender, double weight, double height) {
-
-        patientDict.put(userID, new Patient(userID, firstName, lastName, age, gender, weight, height));
-        userID++;
-        return userID - 1;
-
-    }
-
-    public int createMedication(String medicationName, int adverseMedicationID) {
-
-        medicationDict.put(medicationIDCount, new Medication(medicationIDCount, medicationName, adverseMedicationID));
-        medicationIDCount++;
-        return medicationIDCount - 1;
-    }
-
-    public int createDisease(String name, int medicationID) {
-
-        diseaseDict.put(diseaseIDCount, new Disease(diseaseIDCount, name, medicationID));
-        diseaseIDCount++;
-        return diseaseIDCount - 1;
-
-    }
-
-    public void addPatient(int phyID, int patientID) {
-
-        physicianDict.get(phyID).getPatientList().add(patientID);
-
-    }
-
-    public Medication retrieveMedicationBy(int ID) {
-
-        return medicationDict.get(ID);
-
-    }
-
-    public Disease retrieveDiseaseBy(int ID) {
-
-        return diseaseDict.get(ID);
-
-    }
-
-    public User retrieveUserBy(int ID) {
-
-        User physician = physicianDict.get(ID);
-
-        if (physician == null) {
-
-            User patient = patientDict.get(ID);
-            if (patient != null) {
-
-                return patient;
-
-            }
-
-        }
-
-        return physician;
-
-    }
-
-}
 
 public class Main {
 
     static Gson json = new GsonBuilder().setPrettyPrinting().create();
     static Data data = new Data();
+
+    static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
         readData();
@@ -108,11 +28,12 @@ public class Main {
 
         writeData();
 
+        input.close();
+
     }
 
     public static void init() {
 
-        Scanner input = new Scanner(System.in);
 
         String menu = "Hello, Welcome to ***YourHealth Inc.***!\nPress any of the following:\n\t1- Sign Up\n\t2- Sign In\n\t0- Exit\n";
         System.out.print(menu);
@@ -133,13 +54,11 @@ public class Main {
 
         }
 
-        input.close();
 
     }
 
     public static void authenticate(int userID) {
 
-        Scanner input = new Scanner(System.in);
         User user = data.retrieveUserBy(userID);
 
         if (user == null) {
@@ -182,9 +101,7 @@ public class Main {
             switch (key) {
 
                 case 1:
-
                     viewPatientRecords(patient);
-
                     break;
                 case 2:
                     addMedicationToPatient(patient);
@@ -204,13 +121,11 @@ public class Main {
 
         }
 
-        input.close();
 
     }
 
     public static void signIn() {
 
-        Scanner input = new Scanner(System.in);
 
         System.out.print("Please enter your ID: ");
         int ID = input.nextInt();
@@ -225,13 +140,11 @@ public class Main {
 
         }
 
-        input.close();
 
     }
 
     public static void signUp() {
 
-        Scanner input = new Scanner(System.in);
 
         String phyOrPatient = "Are you a:\n\t1- Patient\n\t2- Physician\n\t0- Exit\n";
         System.out.print(phyOrPatient);
@@ -285,13 +198,11 @@ public class Main {
                 break;
         }
 
-        input.close();
 
     }
 
     public static void addMedicationToPatient(Patient patient) {
 
-        Scanner input = new Scanner(System.in);
         int key = input.nextInt();
 
         if (key == 1) {
@@ -305,7 +216,7 @@ public class Main {
                 Medication medication = data.retrieveMedicationBy(medicationID);
                 if (medication != null) {
 
-                    System.out.printf("Successfully added %s\n", medication.getMedicationName());
+                    System.out.printf("Successfully added %s.\n", medication.getMedicationName());
                     patient.getMedicationsList().add(medicationID);
                 } else {
 
@@ -318,13 +229,12 @@ public class Main {
             }
         }
 
-        input.close();
 
     }
 
     public static void addDiseaseToPatient(Patient patient) {
 
-        Scanner input = new Scanner(System.in);
+
         int key = input.nextInt();
 
         if (key == 1) {
@@ -352,7 +262,6 @@ public class Main {
             }
         }
 
-        input.close();
 
     }
 
@@ -386,8 +295,11 @@ public class Main {
 
     public static void readData() throws FileNotFoundException {
 
-        String currentJSONData = new Scanner(new File("src/data.json")).useDelimiter("\\Z").next();
+        Scanner fileScanner = new Scanner(new File("src/data.json")).useDelimiter("\\Z");
+        String currentJSONData = fileScanner.next();
         data = json.fromJson(currentJSONData, Data.class);
+
+        fileScanner.close();
 
     }
 

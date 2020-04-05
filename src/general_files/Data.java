@@ -1,0 +1,90 @@
+package general_files;
+
+import lab_tech_component.Disease;
+import lab_tech_component.Medication;
+import patient_component.Patient;
+import physician_component.Physician;
+
+import java.util.HashMap;
+
+public class Data {
+
+    int userID = 0;
+    HashMap<Integer, Physician> physicianDict = new HashMap<>();
+    HashMap<Integer, Patient> patientDict = new HashMap<>();
+
+    int medicationIDCount = 0;
+    HashMap<Integer, Medication> medicationDict = new HashMap<>();
+
+    int diseaseIDCount = 0;
+    HashMap<Integer, Disease> diseaseDict = new HashMap<>();
+
+    public int createPhysician(String firstName, String lastName) {
+
+        physicianDict.put(userID, new Physician(userID, firstName, lastName));
+        userID++;
+        return userID - 1;
+
+    }
+
+    public int createPatient(String firstName, String lastName, int age, int gender, double weight, double height) {
+
+        patientDict.put(userID, new Patient(userID, firstName, lastName, age, gender, weight, height));
+        userID++;
+        return userID - 1;
+
+    }
+
+    public int createMedication(String medicationName, int adverseMedicationID) {
+
+        medicationDict.put(medicationIDCount, new Medication(medicationIDCount, medicationName, adverseMedicationID));
+        medicationIDCount++;
+        return medicationIDCount - 1;
+    }
+
+    public int createDisease(String name, int medicationID) {
+
+        diseaseDict.put(diseaseIDCount, new Disease(diseaseIDCount, name, medicationID));
+        diseaseIDCount++;
+        return diseaseIDCount - 1;
+
+    }
+
+    public void addPatient(int phyID, int patientID) {
+
+        physicianDict.get(phyID).getPatientList().add(patientID);
+
+    }
+
+    public Medication retrieveMedicationBy(int ID) {
+
+        return medicationDict.get(ID);
+
+    }
+
+    public Disease retrieveDiseaseBy(int ID) {
+
+        return diseaseDict.get(ID);
+
+    }
+
+    public User retrieveUserBy(int ID) {
+
+        User physician = physicianDict.get(ID);
+
+        if (physician == null) {
+
+            User patient = patientDict.get(ID);
+            if (patient != null) {
+
+                return patient;
+
+            }
+
+        }
+
+        return physician;
+
+    }
+
+}
