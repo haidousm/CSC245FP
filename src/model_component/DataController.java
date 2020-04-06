@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import general_files.User;
 import lab_tech_component.Disease;
+import lab_tech_component.LabTechnician;
 import lab_tech_component.Medication;
 import patient_component.Patient;
 import physician_component.Physician;
@@ -23,7 +24,7 @@ public class DataController {
 
         data.physicianHashMap.put(data.userIDCount, new Physician(data.userIDCount, firstName, lastName));
         data.userIDCount++;
-        return data.userIDCount - 1;
+        return data.userIDCount--;
 
     }
 
@@ -31,7 +32,15 @@ public class DataController {
 
         data.patientHashMap.put(data.userIDCount, new Patient(data.userIDCount, firstName, lastName, age, gender, weight, height));
         data.userIDCount++;
-        return data.userIDCount - 1;
+        return data.userIDCount--;
+
+    }
+
+    public int createLabTech(String firstName, String lastName) {
+
+        data.labTechnicianHashMap.put(data.userIDCount, new LabTechnician(data.userIDCount, firstName, lastName));
+        data.userIDCount++;
+        return data.userIDCount--;
 
     }
 

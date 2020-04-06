@@ -2,6 +2,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import general_files.User;
 import lab_tech_component.Disease;
+import lab_tech_component.LabTechnician;
 import lab_tech_component.Medication;
 import model_component.DataController;
 import org.jetbrains.annotations.NotNull;
@@ -26,13 +27,13 @@ public class Main {
         dataController.readData();
 
         init();
-        //test();
 
         dataController.writeData();
         input.close();
 
     }
 
+    // SignUp/SignIn Menu
     public static void init() {
 
 
@@ -58,6 +59,89 @@ public class Main {
 
     }
 
+    // Auth. Menu
+    public static void signIn() {
+
+
+        System.out.print("Please enter your ID: ");
+        int ID = input.nextInt();
+        User user = dataController.retrieveUserBy(ID);
+        if (user != null) {
+
+            authenticate(ID);
+
+        } else {
+
+            System.out.println("Wrong ID! Please try again later.");
+
+        }
+
+
+    }
+
+    public static void signUp() {
+
+        String phyOrPatient = "Are you a:\n\t1- Patient\n\t2- Physician\n\t3- Lab Technician\n\t0- Exit\n";
+        System.out.print(phyOrPatient);
+        int key = input.nextInt();
+
+        System.out.print("Welcome! Please enter your first name: ");
+        String fName = input.next();
+        System.out.println();
+
+        System.out.print("Last Name: ");
+        String lName = input.next();
+        System.out.println();
+
+        switch (key) {
+            case 1:
+
+                System.out.println("Age | Gender (0 for male, 1 for female) | Weight | Height (Separated by spaces please!)");
+                int age = input.nextInt();
+                int gender = input.nextInt();
+
+                double weight = input.nextDouble();
+                double height = input.nextDouble();
+
+                int newPatientID = dataController.createPatient(fName, lName, age, gender, weight, height);
+
+                System.out.printf("Thank you for signing up! Your ID is #%d.\nPlease save it since you'll need it to sign in later!\n", newPatientID);
+                authenticate(newPatientID);
+                break;
+            case 2:
+                int newPhysicianID = dataController.createPhysician(fName, lName);
+                System.out.print("Would you like to add your patients now?\n\t1- Yes\n\t0- No\n");
+                key = input.nextInt();
+
+                if (key > 0) {
+
+                    System.out.println("Please enter the number of patient (you can add more later): ");
+                    int numOfPatients = input.nextInt();
+                    System.out.println("Please enter your patient IDs separated by spaces:");
+                    while (numOfPatients > 0) {
+
+                        int patientID = input.nextInt();
+                        dataController.addPatientToPhysician(newPhysicianID, patientID);
+                        numOfPatients--;
+                    }
+                }
+
+                System.out.printf("Thank you for signing up! Your ID is #%d.\nPlease save it since you'll need it to sign in later!\n", newPhysicianID);
+                authenticate(newPhysicianID);
+                break;
+            case 3:
+                int newLabTechnicianID = dataController.createLabTech(fName, lName);
+                System.out.printf("Thank you for signing up! Your ID is #%d.\nPlease save it since you'll need it to sign in later!\n", newLabTechnicianID);
+                authenticate(newLabTechnicianID);
+
+            default:
+                break;
+        }
+
+
+    }
+
+    // Main Menu
     public static void authenticate(int userID) {
 
         User user = dataController.retrieveUserBy(userID);
@@ -127,7 +211,7 @@ public class Main {
             }
 
 
-        } else {
+        } else if (user instanceof Physician) {
 
             Physician physician = (Physician) user;
 
@@ -183,83 +267,23 @@ public class Main {
 
             }
 
-        }
-
-
-    }
-
-    // Auth. Menu
-    public static void signIn() {
-
-
-        System.out.print("Please enter your ID: ");
-        int ID = input.nextInt();
-        User user = dataController.retrieveUserBy(ID);
-        if (user != null) {
-
-            authenticate(ID);
-
         } else {
 
-            System.out.println("Wrong ID! Please try again later.");
+            LabTechnician labTechnician = (LabTechnician) user;
+            System.out.printf("Welcome MLs. %s\n", labTechnician.getLastName());
+            System.out.print("What would you like to do?\n\t1- Register New Medication\n\t2- Register New Disease\n\t0- Exit\n");
+            int key = -1;
 
-        }
+            while (key != 0) {
+
+                switch (key) {
 
 
-    }
-
-    public static void signUp() {
-
-        String phyOrPatient = "Are you a:\n\t1- Patient\n\t2- Physician\n\t0- Exit\n";
-        System.out.print(phyOrPatient);
-        int key = input.nextInt();
-
-        System.out.print("Welcome! Please enter your first name: ");
-        String fName = input.next();
-        System.out.println();
-
-        System.out.print("Last Name: ");
-        String lName = input.next();
-        System.out.println();
-
-        switch (key) {
-            case 1:
-
-                System.out.println("Age | Gender (0 for male, 1 for female) | Weight | Height (Separated by spaces please!)");
-                int age = input.nextInt();
-                int gender = input.nextInt();
-
-                double weight = input.nextDouble();
-                double height = input.nextDouble();
-
-                int newPatientID = dataController.createPatient(fName, lName, age, gender, weight, height);
-
-                System.out.printf("Thank you for signing up! Your ID is #%d.\nPlease save it since you'll need it to sign in later!\n", newPatientID);
-                authenticate(newPatientID);
-                break;
-            case 2:
-                int newPhysicianID = dataController.createPhysician(fName, lName);
-                System.out.print("Would you like to add your patients now?\n\t1- Yes\n\t0- No\n");
-                key = input.nextInt();
-
-                if (key > 0) {
-
-                    System.out.println("Please enter the number of patient (you can add more later): ");
-                    int numOfPatients = input.nextInt();
-                    System.out.println("Please enter your patient IDs separated by spaces:");
-                    while (numOfPatients > 0) {
-
-                        int patientID = input.nextInt();
-                        dataController.addPatientToPhysician(newPhysicianID, patientID);
-                        numOfPatients--;
-                    }
                 }
 
-                System.out.printf("Thank you for signing up! Your ID is #%d.\nPlease save it since you'll need it to sign in later!\n", newPhysicianID);
-                authenticate(newPhysicianID);
-                break;
-            default:
-                break;
+            }
+
+
         }
 
 
