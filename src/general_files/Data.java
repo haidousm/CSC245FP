@@ -9,14 +9,14 @@ import java.util.HashMap;
 
 public class Data {
 
-    int userID = 0;
+    int userID = 1;
     HashMap<Integer, Physician> physicianDict = new HashMap<>();
     HashMap<Integer, Patient> patientDict = new HashMap<>();
 
-    int medicationIDCount = 0;
+    int medicationIDCount = 1;
     HashMap<Integer, Medication> medicationDict = new HashMap<>();
 
-    int diseaseIDCount = 0;
+    int diseaseIDCount = 1;
     HashMap<Integer, Disease> diseaseDict = new HashMap<>();
 
     public int createPhysician(String firstName, String lastName) {
@@ -72,11 +72,11 @@ public class Data {
 
     public Medication[] retrieveMedicationArray() {
 
-        Medication[] medications = new Medication[medicationIDCount];
+        Medication[] medications = new Medication[medicationIDCount - 1];
 
-        for (int i = 0; i < medicationIDCount; i++) {
+        for (int i = 0; i < medicationIDCount - 1; i++) {
 
-            medications[i] = retrieveMedicationBy(i);
+            medications[i] = retrieveMedicationBy(i + 1);
 
         }
 

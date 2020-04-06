@@ -12,7 +12,7 @@ public interface IPrescribeMedication {
         boolean possible = true;
         for (int i = 0; i < patientMedicationList.size(); i++) {
 
-            if (newMedication.getMedicationID() == patientMedicationList.get(i).getAdverseMedicationID()) {
+            if (newMedication.getMedicationID() == patientMedicationList.get(i).getAdverseMedicationID() || newMedication.getMedicationID() == patientMedicationList.get(i).getMedicationID()) {
 
                 possible = false;
 

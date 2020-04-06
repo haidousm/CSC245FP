@@ -27,6 +27,7 @@ public class Main {
         readData();
 
         init();
+        //test();
 
         writeData();
 
@@ -85,7 +86,7 @@ public class Main {
 
             if (patient.getMedicationsList().size() == 0) {
 
-                System.out.println("You currently have no medications saved at ***YourHealth Inc.***\nWould you like to?\n\t1- Yes\n\t0- No\n");
+                System.out.println("You currently have no medications saved at ***YourHealth Inc.***\nWould you like to add any?\n\t1- Yes\n\t0- No\n");
                 int key = input.nextInt();
                 if (key > 0) {
                     addMedicationToPatient(patient);
@@ -136,15 +137,7 @@ public class Main {
 
             if (physician.getPatientList().size() == 0) {
 
-                System.out.print("You currently have no patients in your records.\nWe recommend adding your patients so that you'll be able to assist them.\n");
-                System.out.print("Would you like to add your patients?\n\t1- Yes\n\t2- No\n\t0- Exit\n");
-                int key = input.nextInt();
-
-                if (key == 1) {
-
-                    addPatientToPhysician(userID);
-
-                }
+                noPatientPrompt(userID);
 
             }
 
@@ -152,26 +145,38 @@ public class Main {
 
             while (key != 0) {
 
-                System.out.print("What would you like to do?\n\t1- View All Patients\n\t2- View Medication Repository\n\t0- Exit\n");
+                System.out.print("What would you like to do?\n\t1- View All Patients\n\t2- View Medication Repository\n\t3- Add Patients\n\t0- Exit\n");
 
                 key = input.nextInt();
 
                 switch (key) {
 
                     case 1:
-                        viewAllPatients(physician);
-                        System.out.println("Please choose patient ID for more details or enter 0 to exit: ");
-                        key = input.nextInt();
-                        if (key > 0) {
 
-                            detailRecordOfPatientBy(physician, key);
+                        if (physician.getPatientList().size() != 0) {
+                            viewAllPatients(physician);
+                            System.out.println("Please choose patient ID for more details or enter 0 to exit: ");
+                            int patientID = input.nextInt();
+
+                            if (patientID > 0) {
+
+                                detailRecordOfPatientBy(physician, patientID);
+
+                            }
+
+                        } else {
+
+                            noPatientPrompt(userID);
 
                         }
+
                         break;
                     case 2:
 
                         viewAllMedication();
                         break;
+                    case 3:
+                        addPatientToPhysician(userID);
                     default:
                         break;
 
@@ -302,7 +307,7 @@ public class Main {
                 Disease disease = data.retrieveDiseaseBy(diseaseID);
                 if (disease != null) {
 
-                    System.out.printf("Successfully added %s\n.", disease.getName());
+                    System.out.printf("Successfully added %s.\n", disease.getName());
                     patient.getDiseasesList().add(diseaseID);
 
                 } else {
@@ -319,6 +324,7 @@ public class Main {
 
     public static void viewPatientRecords(Patient patient) {
 
+        System.out.printf("Age: %d -- Gender: %d -- Weight: %.1f -- Height: %.1f\n", patient.getAge(), patient.getGender(), patient.getWeight(), patient.getHeight());
         System.out.println("Current medication are:");
         String string = "";
         Iterator<Integer> it = patient.getMedicationsList().iterator();
@@ -442,9 +448,24 @@ public class Main {
 
     }
 
+    public static void noPatientPrompt(int phyID) {
+
+        System.out.print("You currently have no patients in your records.\nWe recommend adding your patients so that you'll be able to assist them.\n");
+        System.out.print("Would you like to add your patients?\n\t1- Yes\n\t2- No\n\t0- Exit\n");
+        int key = input.nextInt();
+
+        if (key == 1) {
+
+            addPatientToPhysician(phyID);
+
+        }
+
+    }
+
     //Medication Menu
     public static void viewAllMedication() {
 
+        System.out.println("Currently Available Medication are:");
         Medication[] medications = data.retrieveMedicationArray();
 
         for (Medication medication : medications) {
@@ -473,7 +494,7 @@ public class Main {
         writer.close();
     }
 
-    public void test() throws IOException {
+    public static void test() throws IOException {
 
         int patientID1 = data.createPatient("C", "C", 18, 0, 80, 175);
         int patientID2 = data.createPatient("D", "D", 52, 1, 63.5, 153.5);

@@ -1,117 +1,114 @@
 {
-  "userID": 7,
+  "userID": 8,
   "physicianDict": {
-    "3": {
-      "patientList": [
-        0,
-        1
-      ],
-      "ID": 3,
-      "firstName": "A",
-      "lastName": "A"
-    },
     "4": {
       "patientList": [
+        1,
         2
       ],
       "ID": 4,
+      "firstName": "A",
+      "lastName": "A"
+    },
+    "5": {
+      "patientList": [
+        3
+      ],
+      "ID": 5,
       "firstName": "B",
       "lastName": "B"
     },
-    "6": {
+    "7": {
       "patientList": [
-        0
+        1,
+        6
       ],
-      "ID": 6,
-      "firstName": "Moussa",
-      "lastName": "Haidous"
+      "ID": 7,
+      "firstName": "Batata",
+      "lastName": "B3ajin"
     }
   },
   "patientDict": {
-    "0": {
-      "diseasesList": [
-        0,
-        1
-      ],
+    "1": {
+      "diseasesList": [],
       "medicationsList": [
-        0,
-        1,
-        2
+        1
       ],
       "age": 18,
       "gender": 0,
       "weight": 80.0,
       "height": 175.0,
-      "ID": 0,
+      "ID": 1,
       "firstName": "C",
       "lastName": "C"
     },
-    "1": {
-      "diseasesList": [
-        0,
-        1
-      ],
-      "medicationsList": [
-        1
-      ],
+    "2": {
+      "diseasesList": [],
+      "medicationsList": [],
       "age": 52,
       "gender": 1,
       "weight": 63.5,
       "height": 153.5,
-      "ID": 1,
+      "ID": 2,
       "firstName": "D",
       "lastName": "D"
     },
-    "2": {
+    "3": {
       "diseasesList": [],
       "medicationsList": [],
       "age": 9,
       "gender": 1,
       "weight": 32.43,
       "height": 120.75,
-      "ID": 2,
+      "ID": 3,
       "firstName": "E",
       "lastName": "E"
     },
-    "5": {
-      "diseasesList": [],
-      "medicationsList": [],
-      "age": 12,
-      "gender": 1,
-      "weight": 152.0,
-      "height": 123.0,
-      "ID": 5,
-      "firstName": "L",
-      "lastName": "L"
+    "6": {
+      "diseasesList": [
+        1
+      ],
+      "medicationsList": [
+        3,
+        1,
+        2
+      ],
+      "age": 18,
+      "gender": 0,
+      "weight": 95.32,
+      "height": 173.0,
+      "ID": 6,
+      "firstName": "Moussa",
+      "lastName": "Haidous"
     }
   },
-  "medicationIDCount": 3,
+  "medicationIDCount": 4,
   "medicationDict": {
-    "0": {
-      "medicationID": 0,
+    "1": {
+      "medicationID": 1,
       "medicationName": "Insulin",
       "adverseMedicationID": 2
     },
-    "1": {
-      "medicationID": 1,
+    "2": {
+      "medicationID": 2,
       "medicationName": "Valium",
       "adverseMedicationID": 0
     },
-    "2": {
-      "medicationID": 2,
+    "3": {
+      "medicationID": 3,
       "medicationName": "HydroxyChloroquine",
       "adverseMedicationID": -1
     }
   },
-  "diseaseIDCount": 2,
+  "diseaseIDCount": 3,
   "diseaseDict": {
-    "0": {
-      "ID": 0,
-      "name": "Malaria",
-      "medicationID": 2
-    },
     "1": {
       "ID": 1,
+      "name": "Malaria",
+      "medicationID": 3
+    },
+    "2": {
+      "ID": 2,
       "name": "nCovid19",
       "medicationID": -1
     }
