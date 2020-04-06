@@ -76,6 +76,6 @@ public class Patient extends User {
 
     @Override
     public String toString() {
-        return " ";
+        return String.format("ID: %d -- %s, %s\n", this.getID(), this.getLastName(), this.getFirstName());
     }
 }

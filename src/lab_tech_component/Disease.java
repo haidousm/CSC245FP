@@ -38,7 +38,7 @@ public class Disease {
     }
 
     public String toString() {
-        return this.getID() + "--" + this.getName() + "\n";
+        return String.format("ID: %d -- Disease Name: %s\n\t", this.getID(), this.getName());
     }
 
 

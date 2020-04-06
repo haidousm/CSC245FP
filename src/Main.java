@@ -5,6 +5,7 @@ import general_files.User;
 import lab_tech_component.Disease;
 import lab_tech_component.Medication;
 import patient_component.Patient;
+import physician_component.Physician;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -83,9 +84,8 @@ public class Main {
 
             if (patient.getMedicationsList().size() == 0) {
 
-                System.out.println("You currently have no medications saved at ***YourHealth Inc.***\nWould you like some?\n\t1- Yes\n\t0- No\n");
+                System.out.println("You currently have no medications saved at ***YourHealth Inc.***\nWould you like to?\n\t1- Yes\n\t0- No\n");
                 int key = input.nextInt();
-
                 if (key > 0) {
                     addMedicationToPatient(patient);
                 }
@@ -106,7 +106,7 @@ public class Main {
 
             while (key != 0) {
 
-                System.out.println("What would you like to do?\n\t1- View Records\n\t2- Add Medications\n\t3- Add Diseases\n\t0- Exit");
+                System.out.print("What would you like to do?\n\t1- View Records\n\t2- Add Medications\n\t3- Add Diseases\n\t0- Exit\n");
                 key = input.nextInt();
 
                 switch (key) {
@@ -129,13 +129,62 @@ public class Main {
 
         } else {
 
-            System.out.println("You're a Physician!");
+            Physician physician = (Physician) user;
+
+            System.out.printf("Welcome Dr. %s\n", physician.getLastName());
+
+            if (physician.getPatientList().size() == 0) {
+
+                System.out.print("You currently have no patients in your records.\nWe recommend adding your patients so that you'll be able to assist them.\n");
+                System.out.print("Would you like to add your patients?\n\t1- Yes\n\t2- No\n\t0- Exit\n");
+                int key = input.nextInt();
+
+                if (key == 1) {
+
+                    addPatientToPhysician(userID);
+
+                }
+
+            }
+
+            int key = -1;
+
+            while (key != 0) {
+
+                System.out.print("What would you like to do?\n\t1- View All Patients\n\t2- View Medication Repository\n\t0- Exit\n");
+
+                key = input.nextInt();
+
+                switch (key) {
+
+                    case 1:
+                        viewAllPatients(physician);
+                        System.out.println("Please choose patient ID for more details or enter 0 to exit: ");
+                        key = input.nextInt();
+                        if (key > 0) {
+
+                            detailRecordOfPatientBy(key);
+
+                        }
+                        break;
+                    case 2:
+
+                        viewAllMedication();
+                        break;
+                    default:
+                        break;
+
+
+                }
+
+            }
 
         }
 
 
     }
 
+    // Auth. Menu
     public static void signIn() {
 
 
@@ -187,7 +236,7 @@ public class Main {
                 break;
             case 2:
                 int newPhysicianID = data.createPhysician(fName, lName);
-                System.out.print("Would you like to add your patients now?\n\t1- Yes\n\t0-No\n");
+                System.out.print("Would you like to add your patients now?\n\t1- Yes\n\t0- No\n");
                 key = input.nextInt();
 
                 if (key > 0) {
@@ -213,30 +262,31 @@ public class Main {
 
     }
 
+    // Patient Menu
     public static void addMedicationToPatient(Patient patient) {
 
 
-            System.out.print("Please enter the # of medications you'd like to add: ");
-            int numOfMeds = input.nextInt();
-            System.out.println("Please enter the medication IDs:");
+        System.out.print("Please enter the # of medications you'd like to add: ");
+        int numOfMeds = input.nextInt();
+        System.out.println("Please enter the medication IDs:");
 
-            while (numOfMeds > 0) {
+        while (numOfMeds > 0) {
 
-                int medicationID = input.nextInt();
-                Medication medication = data.retrieveMedicationBy(medicationID);
-                if (medication != null) {
+            int medicationID = input.nextInt();
+            Medication medication = data.retrieveMedicationBy(medicationID);
+            if (medication != null) {
 
-                    System.out.printf("Successfully added %s.\n", medication.getMedicationName());
-                    patient.getMedicationsList().add(medicationID);
-                } else {
+                System.out.printf("Successfully added %s.\n", medication.getMedicationName());
+                patient.getMedicationsList().add(medicationID);
+            } else {
 
-                    System.out.println("This medication has not been added to our repository yet!");
-
-                }
-
-                numOfMeds--;
+                System.out.println("This medication has not been added to our repository yet!");
 
             }
+
+            numOfMeds--;
+
+        }
     }
 
     public static void addDiseaseToPatient(Patient patient) {
@@ -268,7 +318,7 @@ public class Main {
 
     public static void viewPatientRecords(Patient patient) {
 
-        System.out.println("Your current medication are:");
+        System.out.println("Current medication are:");
         String string = "";
         Iterator<Integer> it = patient.getMedicationsList().iterator();
         while (it.hasNext()) {
@@ -280,13 +330,22 @@ public class Main {
         System.out.println(string);
 
 
-        System.out.println("Your current diseases are:");
+        System.out.println("Current diseases are:");
         string = "";
         it = patient.getDiseasesList().iterator();
         while (it.hasNext()) {
 
-            Medication disease = data.retrieveMedicationBy(it.next());
-            string += disease.toString();
+            Disease disease = data.retrieveDiseaseBy(it.next());
+            Medication medication = data.retrieveMedicationBy(disease.getMedicationID());
+            if (medication != null) {
+
+                string += disease.toString() + medication.toString() + "\n";
+
+            } else {
+
+                string += disease.toString() + "No medication currently exists\n";
+
+            }
 
         }
         System.out.println(string);
@@ -294,6 +353,92 @@ public class Main {
 
     }
 
+    // Physician Menu
+    public static void addPatientToPhysician(int phyID) {
+
+        System.out.print("Please enter the number of patients you'd like to add: ");
+        int numOfPatients = input.nextInt();
+        System.out.println("Please enter your patients' IDs separated by spaces.");
+        while (numOfPatients > 0) {
+
+            int patientID = input.nextInt();
+            Patient patient = data.addPatient(phyID, patientID);
+
+            if (patient != null) {
+
+                System.out.printf("Successfully added %s, %s to your records.\n", patient.getLastName(), patient.getFirstName());
+
+            } else {
+
+                System.out.println("We currently have no patient under this ID.\nPlease double check with your patient and try again later.");
+
+            }
+
+            numOfPatients--;
+
+        }
+
+    }
+
+    public static void viewAllPatients(Physician physician) {
+
+        System.out.println("Your patients are:");
+
+        Iterator<Integer> it = physician.getPatientList().iterator();
+
+        while (it.hasNext()) {
+
+            int patientID = it.next();
+            Patient patient = (Patient) data.retrieveUserBy(patientID);
+            System.out.print("\t" + patient.toString());
+
+        }
+
+    }
+
+    public static void detailRecordOfPatientBy(int patientID) {
+
+        Patient patient = (Patient) data.retrieveUserBy(patientID);
+        viewPatientRecords(patient);
+        System.out.print("Would you like to prescribe any medication?\n\t1- Yes\n\t0- No\n");
+        int key = input.nextInt();
+
+        if (key > 0) {
+
+            System.out.print("Please enter medication ID: ");
+            int medID = input.nextInt();
+
+            Medication medication = data.retrieveMedicationBy(medID);
+
+            if (medication != null) {
+
+                //TODO: USE PRESCRIBE MEDICATION INTERFACE
+                System.out.printf("Successfully prescribed %s for Patient %s, %s.\n", medication.getMedicationName(), patient.getLastName(), patient.getFirstName());
+
+            } else {
+
+                System.out.println("Please make sure the medication you're prescribing exits in our repository\nor is not adverse to any of the patient's current medication!");
+
+            }
+
+        }
+
+    }
+
+    //Medication Menu
+    public static void viewAllMedication() {
+
+        Medication[] medications = data.retrieveMedicationArray();
+
+        for (Medication medication : medications) {
+
+            System.out.print("\t" + medication.toString());
+
+        }
+
+    }
+
+    // IO
     public static void readData() throws FileNotFoundException {
 
         Scanner fileScanner = new Scanner(new File("src/data.json")).useDelimiter("\\Z");

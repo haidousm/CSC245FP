@@ -50,15 +50,37 @@ public class Data {
 
     }
 
-    public void addPatient(int phyID, int patientID) {
+    public Patient addPatient(int phyID, int patientID) {
 
-        physicianDict.get(phyID).getPatientList().add(patientID);
+        Patient patient = patientDict.get(patientID);
+
+        if (patient != null) {
+
+            physicianDict.get(phyID).getPatientList().add(patientID);
+
+        }
+
+        return patient;
 
     }
 
     public Medication retrieveMedicationBy(int ID) {
 
         return medicationDict.get(ID);
+
+    }
+
+    public Medication[] retrieveMedicationArray() {
+
+        Medication[] medications = new Medication[medicationIDCount];
+
+        for (int i = 0; i < medicationIDCount; i++) {
+
+            medications[i] = retrieveMedicationBy(i);
+
+        }
+
+        return medications;
 
     }
 

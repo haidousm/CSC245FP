@@ -1,5 +1,5 @@
 {
-  "userID": 6,
+  "userID": 7,
   "physicianDict": {
     "3": {
       "patientList": [
@@ -17,6 +17,14 @@
       "ID": 4,
       "firstName": "B",
       "lastName": "B"
+    },
+    "6": {
+      "patientList": [
+        0
+      ],
+      "ID": 6,
+      "firstName": "Moussa",
+      "lastName": "Haidous"
     }
   },
   "patientDict": {
