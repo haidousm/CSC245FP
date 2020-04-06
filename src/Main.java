@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -163,7 +164,7 @@ public class Main {
                         key = input.nextInt();
                         if (key > 0) {
 
-                            detailRecordOfPatientBy(key);
+                            detailRecordOfPatientBy(physician, key);
 
                         }
                         break;
@@ -396,7 +397,7 @@ public class Main {
 
     }
 
-    public static void detailRecordOfPatientBy(int patientID) {
+    public static void detailRecordOfPatientBy(Physician physician, int patientID) {
 
         Patient patient = (Patient) data.retrieveUserBy(patientID);
         viewPatientRecords(patient);
@@ -412,12 +413,28 @@ public class Main {
 
             if (medication != null) {
 
-                //TODO: USE PRESCRIBE MEDICATION INTERFACE
-                System.out.printf("Successfully prescribed %s for Patient %s, %s.\n", medication.getMedicationName(), patient.getLastName(), patient.getFirstName());
+                ArrayList<Medication> medications = new ArrayList<>();
+
+                Iterator<Integer> it = patient.getMedicationsList().iterator();
+                while (it.hasNext()) {
+
+                    medications.add(data.retrieveMedicationBy(it.next()));
+
+                }
+                if (physician.prescribeMedication(patient, medications, medication)) {
+
+                    System.out.printf("Successfully prescribed %s for Patient %s, %s.\n", medication.getMedicationName(), patient.getLastName(), patient.getFirstName());
+
+                } else {
+
+                    System.out.println("The medication you're prescribing is adverse to one of the patient's medication.");
+
+                }
+
 
             } else {
 
-                System.out.println("Please make sure the medication you're prescribing exits in our repository\nor is not adverse to any of the patient's current medication!");
+                System.out.println("Please make sure the medication you're prescribing exists in our repository\n");
 
             }
 

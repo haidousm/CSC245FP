@@ -1,17 +1,32 @@
 package physician_component.interfaces;
 
-import java.util.ArrayList;
-
-import general_files.User;
 import lab_tech_component.Medication;
+import patient_component.Patient;
+
+import java.util.ArrayList;
 
 public interface IPrescribeMedication {
 
-    public default boolean prescribeMedication(User patient, ArrayList<Medication> medicationList, Medication newMedication) {
+    default boolean prescribeMedication(Patient patient, ArrayList<Medication> patientMedicationList, Medication newMedication) {
 
-        //TODO: Add default implementation (after creation of patient class)
-        
-        return false;
+        boolean possible = true;
+        for (int i = 0; i < patientMedicationList.size(); i++) {
+
+            if (newMedication.getMedicationID() == patientMedicationList.get(i).getAdverseMedicationID()) {
+
+                possible = false;
+
+            }
+
+        }
+
+        if (possible) {
+
+            patient.getMedicationsList().add(newMedication.getMedicationID());
+
+        }
+
+        return possible;
 
     }
 
