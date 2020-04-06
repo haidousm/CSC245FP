@@ -24,7 +24,7 @@ public class DataController {
 
         data.physicianHashMap.put(data.userIDCount, new Physician(data.userIDCount, firstName, lastName));
         data.userIDCount++;
-        return data.userIDCount--;
+        return data.userIDCount - 1;
 
     }
 
@@ -32,7 +32,7 @@ public class DataController {
 
         data.patientHashMap.put(data.userIDCount, new Patient(data.userIDCount, firstName, lastName, age, gender, weight, height));
         data.userIDCount++;
-        return data.userIDCount--;
+        return data.userIDCount - 1;
 
     }
 
@@ -40,7 +40,7 @@ public class DataController {
 
         data.labTechnicianHashMap.put(data.userIDCount, new LabTechnician(data.userIDCount, firstName, lastName));
         data.userIDCount++;
-        return data.userIDCount--;
+        return data.userIDCount - 1;
 
     }
 
@@ -106,6 +106,33 @@ public class DataController {
 
     }
 
+    public void addNewDisease(Disease disease) {
+
+        data.diseaseHashMap.put(disease.getID(), disease);
+        data.diseaseIDCount++;
+
+    }
+
+    public Disease[] retrieveDiseaseArray() {
+
+        Disease[] diseases = new Disease[data.diseaseIDCount - 1];
+
+        for (int i = 0; i < data.diseaseIDCount - 1; i++) {
+
+            diseases[i] = retrieveDiseaseBy(i + 1);
+
+        }
+
+        return diseases;
+
+    }
+
+    public int getDiseaseIDCount() {
+
+        return data.diseaseIDCount;
+
+    }
+
     public Disease retrieveDiseaseBy(int ID) {
 
         return data.diseaseHashMap.get(ID);
@@ -122,6 +149,16 @@ public class DataController {
             if (patient != null) {
 
                 return patient;
+
+            } else {
+
+                User labTech = data.labTechnicianHashMap.get(ID);
+
+                if (labTech != null) {
+
+                    return labTech;
+
+                }
 
             }
 

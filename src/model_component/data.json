@@ -1,6 +1,6 @@
 {
-  "userIDCount": 1,
-  "physicianDict": {
+  "userIDCount": 7,
+  "physicianHashMap": {
     "4": {
       "patientList": [
         1,
@@ -17,23 +17,12 @@
       "ID": 5,
       "firstName": "B",
       "lastName": "B"
-    },
-    "7": {
-      "patientList": [
-        1,
-        6
-      ],
-      "ID": 7,
-      "firstName": "Batata",
-      "lastName": "B3ajin"
     }
   },
-  "patientDict": {
+  "patientHashMap": {
     "1": {
       "diseasesList": [],
-      "medicationsList": [
-        1
-      ],
+      "medicationsList": [],
       "age": 18,
       "gender": 0,
       "weight": 80.0,
@@ -63,28 +52,17 @@
       "ID": 3,
       "firstName": "E",
       "lastName": "E"
-    },
+    }
+  },
+  "labTechnicianHashMap": {
     "6": {
-      "diseasesList": [
-        1,
-        1
-      ],
-      "medicationsList": [
-        3,
-        1,
-        2
-      ],
-      "age": 18,
-      "gender": 0,
-      "weight": 95.32,
-      "height": 173.0,
       "ID": 6,
       "firstName": "Moussa",
       "lastName": "Haidous"
     }
   },
-  "medicationIDCount": 4,
-  "medicationDict": {
+  "medicationIDCount": 5,
+  "medicationHashMap": {
     "1": {
       "medicationID": 1,
       "medicationName": "Insulin",
@@ -99,10 +77,15 @@
       "medicationID": 3,
       "medicationName": "HydroxyChloroquine",
       "adverseMedicationID": -1
+    },
+    "4": {
+      "medicationID": 4,
+      "medicationName": "Moussa",
+      "adverseMedicationID": -1
     }
   },
-  "diseaseIDCount": 3,
-  "diseaseDict": {
+  "diseaseIDCount": 4,
+  "diseaseHashMap": {
     "1": {
       "ID": 1,
       "name": "Malaria",
@@ -112,6 +95,11 @@
       "ID": 2,
       "name": "nCovid19",
       "medicationID": -1
+    },
+    "3": {
+      "ID": 3,
+      "name": "Moussa",
+      "medicationID": 3
     }
   }
 }

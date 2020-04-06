@@ -1,9 +1,10 @@
 package lab_tech_component;
 
 import general_files.User;
+import lab_tech_component.interfaces.IAddNewDisease;
 import lab_tech_component.interfaces.IAddNewMedication;
 
-public class LabTechnician extends User implements IAddNewMedication {
+public class LabTechnician extends User implements IAddNewMedication, IAddNewDisease {
 
     public LabTechnician(int ID, String firstName, String lastName) {
         super(ID, firstName, lastName);

@@ -27,6 +27,7 @@ public class Main {
         dataController.readData();
 
         init();
+        //test();
 
         dataController.writeData();
         input.close();
@@ -133,7 +134,7 @@ public class Main {
                 int newLabTechnicianID = dataController.createLabTech(fName, lName);
                 System.out.printf("Thank you for signing up! Your ID is #%d.\nPlease save it since you'll need it to sign in later!\n", newLabTechnicianID);
                 authenticate(newLabTechnicianID);
-
+                break;
             default:
                 break;
         }
@@ -271,32 +272,39 @@ public class Main {
 
             LabTechnician labTechnician = (LabTechnician) user;
             System.out.printf("Welcome MLs. %s\n", labTechnician.getLastName());
-            System.out.print("What would you like to do?\n\t1- Register New Medication\n\t2- Register New Disease\n\t0- Exit\n");
             int key = -1;
 
             while (key != 0) {
 
+                System.out.print("What would you like to do?\n\t1- View Medication Repository\n\t2- View Disease Repository\n\t3- Register New Medication\n\t4- Register New Disease\n\t0- Exit\n");
+                key = input.nextInt();
                 switch (key) {
 
                     case 1:
+                        viewAllMedication();
+                        break;
+                    case 2:
+                        viewAllDiseases();
+                        break;
+                    case 3:
                         System.out.print("Please enter Medication Name: ");
                         String newMedicationName = input.next();
                         System.out.print("Please enter adverse medication ID (if does not exist, enter -1): ");
                         int adverseMedicationID = input.nextInt();
 
                         dataController.addNewMedication(labTechnician.addNewMedication(dataController.getMedicationIDCount(), newMedicationName, adverseMedicationID));
-                        System.out.printf("Successfully added %s to the Medication Repository", newMedicationName);
+                        System.out.printf("Successfully added %s to the Medication Repository.\n", newMedicationName);
 
                         break;
-                    case 2:
+                    case 4:
 
                         System.out.print("Please enter Disease Name: ");
                         String newDiseaseName = input.next();
                         System.out.print("Please enter medication ID (if does not exist, enter -1): ");
                         int medicationID = input.nextInt();
 
-                        dataController.addNewMedication(labTechnician.addNewMedication(dataController.getMedicationIDCount(), newMedicationName, adverseMedicationID));
-                        System.out.printf("Successfully added %s to the Medication Repository", newMedicationName);
+                        dataController.addNewDisease(labTechnician.addNewDisease(dataController.getDiseaseIDCount(), newDiseaseName, medicationID));
+                        System.out.printf("Successfully added %s to the Disease Repository.\n", newDiseaseName);
 
                         break;
                     default:
@@ -506,7 +514,7 @@ public class Main {
 
     }
 
-    //Medication Menu
+    //Lab Tech. Menu
     public static void viewAllMedication() {
 
         System.out.println("Currently Available Medication are:");
@@ -520,29 +528,42 @@ public class Main {
 
     }
 
-//    public static void test() throws IOException {
-//
-//        int patientID1 = data.createPatient("C", "C", 18, 0, 80, 175);
-//        int patientID2 = data.createPatient("D", "D", 52, 1, 63.5, 153.5);
-//        int patientID3 = data.createPatient("E", "E", 9, 1, 32.43, 120.75);
-//
-//        int phyID1 = data.createPhysician("A", "A");
-//        int phyID2 = data.createPhysician("B", "B");
-//
-//        data.addPatient(phyID1, patientID1);
-//        data.addPatient(phyID1, patientID2);
-//        data.addPatient(phyID2, patientID3);
-//
-//        data.createMedication("Insulin", 2);
-//        data.createMedication("Valium", 0);
-//        int hydroxyID = data.createMedication("HydroxyChloroquine", -1);
-//
-//        data.createDisease("Malaria", hydroxyID);
-//        data.createDisease("nCovid19", -1);
-//
-//        writeData();
-//
-//    }
+    public static void viewAllDiseases() {
+
+        System.out.println("Currently Registered Diseases are:");
+        Disease[] diseases = dataController.retrieveDiseaseArray();
+
+        for (Disease disease : diseases) {
+
+            System.out.print("\t" + disease.toString());
+
+        }
+
+    }
+
+    public static void test() throws IOException {
+
+        int patientID1 = dataController.createPatient("C", "C", 18, 0, 80, 175);
+        int patientID2 = dataController.createPatient("D", "D", 52, 1, 63.5, 153.5);
+        int patientID3 = dataController.createPatient("E", "E", 9, 1, 32.43, 120.75);
+
+        int phyID1 = dataController.createPhysician("A", "A");
+        int phyID2 = dataController.createPhysician("B", "B");
+
+        dataController.addPatientToPhysician(phyID1, patientID1);
+        dataController.addPatientToPhysician(phyID1, patientID2);
+        dataController.addPatientToPhysician(phyID2, patientID3);
+
+        dataController.createMedication("Insulin", 2);
+        dataController.createMedication("Valium", 0);
+        int hydroxyID = dataController.createMedication("HydroxyChloroquine", -1);
+
+        dataController.createDisease("Malaria", hydroxyID);
+        dataController.createDisease("nCovid19", -1);
+
+        dataController.writeData();
+
+    }
 
 }
 
