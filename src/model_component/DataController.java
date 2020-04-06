@@ -21,7 +21,7 @@ public class DataController {
 
     public int createPhysician(String firstName, String lastName) {
 
-        data.physicianDict.put(data.userIDCount, new Physician(data.userIDCount, firstName, lastName));
+        data.physicianHashMap.put(data.userIDCount, new Physician(data.userIDCount, firstName, lastName));
         data.userIDCount++;
         return data.userIDCount - 1;
 
@@ -29,7 +29,7 @@ public class DataController {
 
     public int createPatient(String firstName, String lastName, int age, int gender, double weight, double height) {
 
-        data.patientDict.put(data.userIDCount, new Patient(data.userIDCount, firstName, lastName, age, gender, weight, height));
+        data.patientHashMap.put(data.userIDCount, new Patient(data.userIDCount, firstName, lastName, age, gender, weight, height));
         data.userIDCount++;
         return data.userIDCount - 1;
 
@@ -37,14 +37,14 @@ public class DataController {
 
     public int createMedication(String medicationName, int adverseMedicationID) {
 
-        data.medicationDict.put(data.medicationIDCount, new Medication(data.medicationIDCount, medicationName, adverseMedicationID));
+        data.medicationHashMap.put(data.medicationIDCount, new Medication(data.medicationIDCount, medicationName, adverseMedicationID));
         data.medicationIDCount++;
         return data.medicationIDCount - 1;
     }
 
     public int createDisease(String name, int medicationID) {
 
-        data.diseaseDict.put(data.diseaseIDCount, new Disease(data.diseaseIDCount, name, medicationID));
+        data.diseaseHashMap.put(data.diseaseIDCount, new Disease(data.diseaseIDCount, name, medicationID));
         data.diseaseIDCount++;
         return data.diseaseIDCount - 1;
 
@@ -52,11 +52,11 @@ public class DataController {
 
     public Patient addPatientToPhysician(int phyID, int patientID) {
 
-        Patient patient = data.patientDict.get(patientID);
+        Patient patient = data.patientHashMap.get(patientID);
 
         if (patient != null) {
 
-            data.physicianDict.get(phyID).getPatientList().add(patientID);
+            data.physicianHashMap.get(phyID).getPatientList().add(patientID);
 
         }
 
@@ -66,7 +66,7 @@ public class DataController {
 
     public Medication retrieveMedicationBy(int ID) {
 
-        return data.medicationDict.get(ID);
+        return data.medicationHashMap.get(ID);
 
     }
 
@@ -86,17 +86,17 @@ public class DataController {
 
     public Disease retrieveDiseaseBy(int ID) {
 
-        return data.diseaseDict.get(ID);
+        return data.diseaseHashMap.get(ID);
 
     }
 
     public User retrieveUserBy(int ID) {
 
-        User physician = data.physicianDict.get(ID);
+        User physician = data.physicianHashMap.get(ID);
 
         if (physician == null) {
 
-            User patient = data.patientDict.get(ID);
+            User patient = data.patientHashMap.get(ID);
             if (patient != null) {
 
                 return patient;

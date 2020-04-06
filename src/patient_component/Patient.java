@@ -19,28 +19,16 @@ public class Patient extends User {
         this.setWeight(weight);
         this.setHeight(height);
         this.setGender(gender);
-//		this.setDiseasesList(diseasesList);
-//		this.setMedicationsList(medicationsList);
-//		, ArrayList<Integer> diseasesList, ArrayList<Integer> medicationsList
-
 
     }
 
     public ArrayList<Integer> getDiseasesList() {
         return diseasesList;
     }
-
-    public void setDiseasesList(ArrayList<Integer> diseasesList) {
-        this.diseasesList = diseasesList;
-    }
-
     public ArrayList<Integer> getMedicationsList() {
         return medicationsList;
     }
 
-    public void setMedicationsList(ArrayList<Integer> medicationsList) {
-        this.medicationsList = medicationsList;
-    }
 
     public int getAge() {
         return age;
@@ -73,6 +61,7 @@ public class Patient extends User {
     public void setGender(int gender) {
         this.gender = gender;
     }
+
 
     @Override
     public String toString() {

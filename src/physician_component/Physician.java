@@ -15,32 +15,12 @@ public class Physician extends User implements IPrescribeMedication {
 
     }
 
-    public String toString() {
-
-//        String string = String.format("Physician ID: %d -- Physician Name: %s, %s -- Patient List:\n", this.getID(), this.getLastName(), this.getFirstName());
-//
-//        Iterator<Integer> it = patientList.iterator();
-//
-//        while(it.hasNext()){
-//
-//            User currentPatient = it.next();
-//
-//            string += " " + currentPatient.toString() + "\n";
-//
-//        }
-//
-//        return string;
-
-        return " ";
-    }
-
-
     public ArrayList<Integer> getPatientList() {
         return this.patientList;
     }
 
-    public void setPatientList(ArrayList<Integer> patientList) {
-        this.patientList = patientList;
+    @Override
+    public String toString() {
+        return String.format("ID: %d -- %s, %s", this.getID(), this.getLastName(), this.getFirstName());
     }
-
 }
