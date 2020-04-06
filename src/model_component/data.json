@@ -1,5 +1,5 @@
 {
-  "userID": 8,
+  "userIDCount": 1,
   "physicianDict": {
     "4": {
       "patientList": [
@@ -66,6 +66,7 @@
     },
     "6": {
       "diseasesList": [
+        1,
         1
       ],
       "medicationsList": [

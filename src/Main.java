@@ -1,15 +1,12 @@
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import general_files.Data;
 import general_files.User;
 import lab_tech_component.Disease;
 import lab_tech_component.Medication;
+import model_component.DataController;
 import patient_component.Patient;
 import physician_component.Physician;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,18 +16,18 @@ import java.util.Scanner;
 public class Main {
 
     static Gson json = new GsonBuilder().setPrettyPrinting().create();
-    static Data data = new Data();
+    static DataController dataController = new DataController();
 
     static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
-        readData();
+
+        dataController.readData();
 
         init();
         //test();
 
-        writeData();
-
+        dataController.writeData();
         input.close();
 
     }
@@ -62,7 +59,7 @@ public class Main {
 
     public static void authenticate(int userID) {
 
-        User user = data.retrieveUserBy(userID);
+        User user = dataController.retrieveUserBy(userID);
 
         if (user == null) {
 
@@ -196,7 +193,7 @@ public class Main {
 
         System.out.print("Please enter your ID: ");
         int ID = input.nextInt();
-        User user = data.retrieveUserBy(ID);
+        User user = dataController.retrieveUserBy(ID);
         if (user != null) {
 
             authenticate(ID);
@@ -211,7 +208,6 @@ public class Main {
     }
 
     public static void signUp() {
-
 
         String phyOrPatient = "Are you a:\n\t1- Patient\n\t2- Physician\n\t0- Exit\n";
         System.out.print(phyOrPatient);
@@ -235,13 +231,13 @@ public class Main {
                 double weight = input.nextDouble();
                 double height = input.nextDouble();
 
-                int newPatientID = data.createPatient(fName, lName, age, gender, weight, height);
+                int newPatientID = dataController.createPatient(fName, lName, age, gender, weight, height);
 
                 System.out.printf("Thank you for signing up! Your ID is #%d.\nPlease save it since you'll need it to sign in later!\n", newPatientID);
                 authenticate(newPatientID);
                 break;
             case 2:
-                int newPhysicianID = data.createPhysician(fName, lName);
+                int newPhysicianID = dataController.createPhysician(fName, lName);
                 System.out.print("Would you like to add your patients now?\n\t1- Yes\n\t0- No\n");
                 key = input.nextInt();
 
@@ -253,7 +249,7 @@ public class Main {
                     while (numOfPatients > 0) {
 
                         int patientID = input.nextInt();
-                        data.addPatient(newPhysicianID, patientID);
+                        dataController.addPatientToPhysician(newPhysicianID, patientID);
                         numOfPatients--;
                     }
                 }
@@ -279,7 +275,7 @@ public class Main {
         while (numOfMeds > 0) {
 
             int medicationID = input.nextInt();
-            Medication medication = data.retrieveMedicationBy(medicationID);
+            Medication medication = dataController.retrieveMedicationBy(medicationID);
             if (medication != null) {
 
                 System.out.printf("Successfully added %s.\n", medication.getMedicationName());
@@ -304,7 +300,7 @@ public class Main {
             while (numOfDiseases > 0) {
 
                 int diseaseID = input.nextInt();
-                Disease disease = data.retrieveDiseaseBy(diseaseID);
+                Disease disease = dataController.retrieveDiseaseBy(diseaseID);
                 if (disease != null) {
 
                     System.out.printf("Successfully added %s.\n", disease.getName());
@@ -330,7 +326,7 @@ public class Main {
         Iterator<Integer> it = patient.getMedicationsList().iterator();
         while (it.hasNext()) {
 
-            Medication medication = data.retrieveMedicationBy(it.next());
+            Medication medication = dataController.retrieveMedicationBy(it.next());
             string += medication.toString();
 
         }
@@ -342,8 +338,8 @@ public class Main {
         it = patient.getDiseasesList().iterator();
         while (it.hasNext()) {
 
-            Disease disease = data.retrieveDiseaseBy(it.next());
-            Medication medication = data.retrieveMedicationBy(disease.getMedicationID());
+            Disease disease = dataController.retrieveDiseaseBy(it.next());
+            Medication medication = dataController.retrieveMedicationBy(disease.getMedicationID());
             if (medication != null) {
 
                 string += disease.toString() + medication.toString() + "\n";
@@ -369,7 +365,7 @@ public class Main {
         while (numOfPatients > 0) {
 
             int patientID = input.nextInt();
-            Patient patient = data.addPatient(phyID, patientID);
+            Patient patient = dataController.addPatientToPhysician(phyID, patientID);
 
             if (patient != null) {
 
@@ -396,7 +392,7 @@ public class Main {
         while (it.hasNext()) {
 
             int patientID = it.next();
-            Patient patient = (Patient) data.retrieveUserBy(patientID);
+            Patient patient = (Patient) dataController.retrieveUserBy(patientID);
             System.out.print("\t" + patient.toString());
 
         }
@@ -405,7 +401,7 @@ public class Main {
 
     public static void detailRecordOfPatientBy(Physician physician, int patientID) {
 
-        Patient patient = (Patient) data.retrieveUserBy(patientID);
+        Patient patient = (Patient) dataController.retrieveUserBy(patientID);
         viewPatientRecords(patient);
         System.out.print("Would you like to prescribe any medication?\n\t1- Yes\n\t0- No\n");
         int key = input.nextInt();
@@ -415,7 +411,7 @@ public class Main {
             System.out.print("Please enter medication ID: ");
             int medID = input.nextInt();
 
-            Medication medication = data.retrieveMedicationBy(medID);
+            Medication medication = dataController.retrieveMedicationBy(medID);
 
             if (medication != null) {
 
@@ -424,7 +420,7 @@ public class Main {
                 Iterator<Integer> it = patient.getMedicationsList().iterator();
                 while (it.hasNext()) {
 
-                    medications.add(data.retrieveMedicationBy(it.next()));
+                    medications.add(dataController.retrieveMedicationBy(it.next()));
 
                 }
                 if (physician.prescribeMedication(patient, medications, medication)) {
@@ -466,7 +462,7 @@ public class Main {
     public static void viewAllMedication() {
 
         System.out.println("Currently Available Medication are:");
-        Medication[] medications = data.retrieveMedicationArray();
+        Medication[] medications = dataController.retrieveMedicationArray();
 
         for (Medication medication : medications) {
 
@@ -476,47 +472,29 @@ public class Main {
 
     }
 
-    // IO
-    public static void readData() throws FileNotFoundException {
-
-        Scanner fileScanner = new Scanner(new File("src/data.json")).useDelimiter("\\Z");
-        String currentJSONData = fileScanner.next();
-        data = json.fromJson(currentJSONData, Data.class);
-
-        fileScanner.close();
-
-    }
-
-    public static void writeData() throws IOException {
-
-        FileWriter writer = new FileWriter("src/data.json");
-        writer.write(json.toJson(data));
-        writer.close();
-    }
-
-    public static void test() throws IOException {
-
-        int patientID1 = data.createPatient("C", "C", 18, 0, 80, 175);
-        int patientID2 = data.createPatient("D", "D", 52, 1, 63.5, 153.5);
-        int patientID3 = data.createPatient("E", "E", 9, 1, 32.43, 120.75);
-
-        int phyID1 = data.createPhysician("A", "A");
-        int phyID2 = data.createPhysician("B", "B");
-
-        data.addPatient(phyID1, patientID1);
-        data.addPatient(phyID1, patientID2);
-        data.addPatient(phyID2, patientID3);
-
-        data.createMedication("Insulin", 2);
-        data.createMedication("Valium", 0);
-        int hydroxyID = data.createMedication("HydroxyChloroquine", -1);
-
-        data.createDisease("Malaria", hydroxyID);
-        data.createDisease("nCovid19", -1);
-
-        writeData();
-
-    }
+//    public static void test() throws IOException {
+//
+//        int patientID1 = data.createPatient("C", "C", 18, 0, 80, 175);
+//        int patientID2 = data.createPatient("D", "D", 52, 1, 63.5, 153.5);
+//        int patientID3 = data.createPatient("E", "E", 9, 1, 32.43, 120.75);
+//
+//        int phyID1 = data.createPhysician("A", "A");
+//        int phyID2 = data.createPhysician("B", "B");
+//
+//        data.addPatient(phyID1, patientID1);
+//        data.addPatient(phyID1, patientID2);
+//        data.addPatient(phyID2, patientID3);
+//
+//        data.createMedication("Insulin", 2);
+//        data.createMedication("Valium", 0);
+//        int hydroxyID = data.createMedication("HydroxyChloroquine", -1);
+//
+//        data.createDisease("Malaria", hydroxyID);
+//        data.createDisease("nCovid19", -1);
+//
+//        writeData();
+//
+//    }
 
 }
 
