@@ -73,6 +73,13 @@ public class DataController {
 
     }
 
+    public void addNewMedication(Medication medication) {
+
+        data.medicationHashMap.put(medication.getMedicationID(), medication);
+        data.medicationIDCount++;
+
+    }
+
     public Medication retrieveMedicationBy(int ID) {
 
         return data.medicationHashMap.get(ID);
@@ -90,6 +97,12 @@ public class DataController {
         }
 
         return medications;
+
+    }
+
+    public int getMedicationIDCount() {
+
+        return data.medicationIDCount;
 
     }
 

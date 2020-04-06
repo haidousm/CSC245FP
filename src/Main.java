@@ -278,6 +278,29 @@ public class Main {
 
                 switch (key) {
 
+                    case 1:
+                        System.out.print("Please enter Medication Name: ");
+                        String newMedicationName = input.next();
+                        System.out.print("Please enter adverse medication ID (if does not exist, enter -1): ");
+                        int adverseMedicationID = input.nextInt();
+
+                        dataController.addNewMedication(labTechnician.addNewMedication(dataController.getMedicationIDCount(), newMedicationName, adverseMedicationID));
+                        System.out.printf("Successfully added %s to the Medication Repository", newMedicationName);
+
+                        break;
+                    case 2:
+
+                        System.out.print("Please enter Disease Name: ");
+                        String newDiseaseName = input.next();
+                        System.out.print("Please enter medication ID (if does not exist, enter -1): ");
+                        int medicationID = input.nextInt();
+
+                        dataController.addNewMedication(labTechnician.addNewMedication(dataController.getMedicationIDCount(), newMedicationName, adverseMedicationID));
+                        System.out.printf("Successfully added %s to the Medication Repository", newMedicationName);
+
+                        break;
+                    default:
+                        break;
 
                 }
 
