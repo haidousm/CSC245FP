@@ -40,7 +40,7 @@ public class Medication {
 
     public String toString() {
 
-        return String.format("Medication ID: %d -- Medication Name: %s\n", this.getMedicationID(), this.getMedicationName());
+        return String.format("ID: %d -- %s\n", this.getMedicationID(), this.getMedicationName());
     }
 
 }
