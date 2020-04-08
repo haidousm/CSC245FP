@@ -61,7 +61,7 @@
       "lastName": "Haidous"
     }
   },
-  "medicationIDCount": 5,
+  "medicationIDCount": 6,
   "medicationHashMap": {
     "1": {
       "medicationID": 1,
@@ -81,6 +81,11 @@
     "4": {
       "medicationID": 4,
       "medicationName": "Moussa",
+      "adverseMedicationID": -1
+    },
+    "5": {
+      "medicationID": 5,
+      "medicationName": "AMedicationThatStartsWithA",
       "adverseMedicationID": -1
     }
   },

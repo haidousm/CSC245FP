@@ -10,10 +10,7 @@ import patient_component.Patient;
 import physician_component.Physician;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class Main {
@@ -534,6 +531,8 @@ public class Main {
         System.out.println("Currently Available Medication are:");
         Medication[] medications = dataController.retrieveMedicationArray();
 
+        Arrays.sort(medications);
+
         for (Medication medication : medications) {
 
             System.out.print("\t" + medication.toString());
@@ -546,6 +545,8 @@ public class Main {
 
         System.out.println("Currently Registered Diseases are:");
         Disease[] diseases = dataController.retrieveDiseaseArray();
+
+        Arrays.sort(diseases);
 
         for (Disease disease : diseases) {
 

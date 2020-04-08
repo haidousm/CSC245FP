@@ -1,6 +1,8 @@
 package lab_tech_component;
 
-public class Disease {
+import org.jetbrains.annotations.NotNull;
+
+public class Disease implements Comparable<Disease> {
 
     private int ID;
     private String name;
@@ -11,6 +13,11 @@ public class Disease {
         this.setID(ID);
         this.setName(name);
         this.setMedicationID(medicationID);
+    }
+
+    @Override
+    public int compareTo(@NotNull Disease anotherUser) {
+        return anotherUser.getName().compareTo(this.getName()) * -1;
     }
 
     public int getID() {
