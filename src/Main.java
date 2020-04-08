@@ -11,6 +11,7 @@ import physician_component.Physician;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -443,15 +444,28 @@ public class Main {
 
         System.out.println("Your patients are:");
 
+        ArrayList<Patient> patientList = new ArrayList<>();
+
         Iterator<Integer> it = physician.getPatientList().iterator();
 
         while (it.hasNext()) {
 
             int patientID = it.next();
             Patient patient = (Patient) dataController.retrieveUserBy(patientID);
-            System.out.print("\t" + patient.toString());
+            patientList.add(patient);
+        }
+
+        // sort alphabetically
+        Collections.sort(patientList);
+
+        Iterator<Patient> patientIterator = patientList.iterator();
+
+        while (patientIterator.hasNext()) {
+
+            System.out.print("\t" + patientIterator.next().toString());
 
         }
+
 
     }
 

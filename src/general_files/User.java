@@ -1,17 +1,25 @@
 package general_files;
-public abstract class User {
+
+import org.jetbrains.annotations.NotNull;
+
+public abstract class User implements Comparable<User> {
 
     private int ID;
     private String firstName;
     private String lastName;
 
-    public User(int ID, String firstName, String lastName){
+    public User(int ID, String firstName, String lastName) {
 
         this.setID(ID);
         this.setFirstName(firstName);
         this.setLastName(lastName);
 
-    }   
+    }
+
+    @Override
+    public int compareTo(@NotNull User anotherUser) {
+        return anotherUser.getLastName().compareTo(this.lastName) * -1;
+    }
 
     public abstract String toString();
 
