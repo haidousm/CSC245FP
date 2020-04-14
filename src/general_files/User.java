@@ -1,7 +1,5 @@
 package general_files;
 
-import org.jetbrains.annotations.NotNull;
-
 public abstract class User implements Comparable<User> {
 
     private int ID;
@@ -17,7 +15,7 @@ public abstract class User implements Comparable<User> {
     }
 
     @Override
-    public int compareTo(@NotNull User anotherUser) {
+    public int compareTo(User anotherUser) {
         return anotherUser.getLastName().compareTo(this.lastName) * -1;
     }
 

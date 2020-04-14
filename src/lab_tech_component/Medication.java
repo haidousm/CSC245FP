@@ -1,6 +1,5 @@
 package lab_tech_component;
 
-import org.jetbrains.annotations.NotNull;
 
 public class Medication implements Comparable<Medication> {
 
@@ -17,7 +16,7 @@ public class Medication implements Comparable<Medication> {
     }
 
     @Override
-    public int compareTo(@NotNull Medication anotherUser) {
+    public int compareTo(Medication anotherUser) {
         return anotherUser.getMedicationName().compareTo(this.getMedicationName()) * -1;
     }
 

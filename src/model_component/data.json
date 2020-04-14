@@ -22,7 +22,9 @@
   "patientHashMap": {
     "1": {
       "diseasesList": [],
-      "medicationsList": [],
+      "medicationsList": [
+        1
+      ],
       "age": 18,
       "gender": 0,
       "weight": 80.0,

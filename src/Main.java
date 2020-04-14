@@ -5,7 +5,6 @@ import lab_tech_component.Disease;
 import lab_tech_component.LabTechnician;
 import lab_tech_component.Medication;
 import model_component.DataController;
-import org.jetbrains.annotations.NotNull;
 import patient_component.Patient;
 import physician_component.Physician;
 
@@ -372,7 +371,7 @@ public class Main {
 
     }
 
-    public static void viewPatientRecords(@NotNull Patient patient) {
+    public static void viewPatientRecords(Patient patient) {
 
         System.out.printf("Age: %d -- Gender: %d -- Weight: %.1f -- Height: %.1f\n", patient.getAge(), patient.getGender(), patient.getWeight(), patient.getHeight());
         System.out.println("Current medication are:");
@@ -437,7 +436,7 @@ public class Main {
 
     }
 
-    public static void viewAllPatients(@NotNull Physician physician) {
+    public static void viewAllPatients(Physician physician) {
 
         System.out.println("Your patients are:");
 
