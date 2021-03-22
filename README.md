@@ -1,6 +1,5 @@
-# LAU CSC245 Final Project
-
-## Electronic Medical Record System
+# Electronic Medical Record System
+## LAU CSC245 Final Project
 
 ---
 
